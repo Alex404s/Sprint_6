@@ -35,6 +35,10 @@ class BasePage:
     def get_url(self):
         current_url = self.driver.current_url
         return current_url
+    
+    @allure.step('Переключение на последнюю открытую страницу в браузере')
+    def switch_window(self):
+        self.driver.switch_to.window(self.driver.window_handles[-1])
 
 
 

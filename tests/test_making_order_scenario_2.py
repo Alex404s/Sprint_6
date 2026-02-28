@@ -40,7 +40,7 @@ class TestMakingOrder2:
     def test_yandex_button_dzen_url(self,driver):
         yandex_button = ImportantQuestions(driver)
         yandex_button.click_button(BasePageLocators.yandex_button)       
-        driver.switch_to.window(driver.window_handles[-1])
+        yandex_button.switch_window()
         yandex_button.wait_for_load_element(BasePageLocators.yandex_dzen)
         current_url = yandex_button.get_url()   
 

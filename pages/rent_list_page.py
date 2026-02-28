@@ -33,12 +33,7 @@ class RentListPage(BasePage):
 
     @allure.step('Подтверждение заказа')
     def accept_order(self):
-        super().click_button(RentListPageLocators.order_accept_button)
-    
-    @allure.step('Получение текста успешного заказа')
-    def get_text_success_field(self):
-        text_success_field = self.driver.find_element(*RentListPageLocators.order_success_field).text
-        return text_success_field     
+        super().click_button(RentListPageLocators.order_accept_button)  
 
 
     @allure.step('Первый сценарий оформления аренды и дальнейшего заказа')
