@@ -1,4 +1,5 @@
 from ..locators.rent_list_page_locators import RentListPageLocators
+from ..locators.base_page_locators import BasePageLocators
 from .base_page import BasePage
 import allure
 
@@ -33,7 +34,24 @@ class RentListPage(BasePage):
 
     @allure.step('Подтверждение заказа')
     def accept_order(self):
-        super().click_button(RentListPageLocators.order_accept_button)  
+        super().click_button(RentListPageLocators.order_accept_button)
+
+    @allure.step('Получение текста успешного заказа')
+    def get_text_success_order(self):
+        text = super().get_text_element(RentListPageLocators.order_success_field)
+        return text 
+    
+    @allure.step('Нажатие кнопки "Посмотреть статус"')
+    def click_status_button(self):
+        super().click_button(RentListPageLocators.look_status_button)               
+    
+    @allure.step('Нажатие кнопки "Самокат"')
+    def click_scooter_button(self):
+        super().click_button(BasePageLocators.scooter_button)
+    
+    @allure.step('Ожидание прогрузки домашней страницы')
+    def wait_for_load_home_page(self):
+        super().wait_for_load_element(BasePageLocators.home_title_img)
 
 
     @allure.step('Первый сценарий оформления аренды и дальнейшего заказа')

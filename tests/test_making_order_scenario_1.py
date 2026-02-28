@@ -1,8 +1,6 @@
 import pytest
 from ..pages.scooter_order_page import ScooterOrderPage
 from ..pages.rent_list_page import RentListPage
-from ..locators.rent_list_page_locators import RentListPageLocators
-from ..locators.base_page_locators import BasePageLocators
 from ..data import UserData
 from ..pages.home_page import ImportantQuestions
 import allure
@@ -21,16 +19,15 @@ class TestMakingOrder1:
         rent_page = RentListPage(driver)
         rent_page.making_an_order_scenario_1(
                                   UserData.user_1_info['rent_date'],
-                                  UserData.user_1_info['rent_comment'])
-        
-        rent_page.wait_for_load_element(RentListPageLocators.order_success_field)
-        check_success_order = rent_page.get_text_element(RentListPageLocators.order_success_field)
+                                  UserData.user_1_info['rent_comment'])        
+    
+        check_success_order = rent_page.get_text_success_order()
 
         assert 'Заказ оформлен' in check_success_order     
            
-        rent_page.click_button(RentListPageLocators.look_status_button)               
-        rent_page.click_button(BasePageLocators.scooter_button)
-        rent_page.wait_for_load_element(BasePageLocators.home_title_img)
+        rent_page.click_status_button()               
+        rent_page.click_scooter_button()
+        rent_page.wait_for_load_home_page()
         current_url = rent_page.get_url()     
 
         assert current_url == "https://qa-scooter.praktikum-services.ru/"
@@ -38,9 +35,9 @@ class TestMakingOrder1:
     @allure.title('Проверка перехода на "https://dzen.ru/?yredirect=true"')
     def test_yandex_button_dzen_url(self,driver):
         yandex_button = ImportantQuestions(driver)
-        yandex_button.click_button(BasePageLocators.yandex_button)       
+        yandex_button.click_yandex_button()       
         yandex_button.switch_window()
-        yandex_button.wait_for_load_element(BasePageLocators.yandex_dzen)
+        yandex_button.wait_for_load_dzen()
         current_url = yandex_button.get_url()   
 
         assert current_url == 'https://dzen.ru/?yredirect=true'

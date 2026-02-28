@@ -6,6 +6,14 @@ import allure
 
 class ImportantQuestions(BasePage):
 
+    @allure.step('Нажатие кнопки "Яндекс"')
+    def click_yandex_button(self):
+        super().click_button(BasePageLocators.yandex_button)
+
+    @allure.step('Ожидание прогрузки страницы Дзен')
+    def wait_for_load_dzen(self):
+        super().wait_for_load_element(BasePageLocators.yandex_dzen)
+
     @allure.step('Переход и нажатие по пункту выпадающего списка в разделе «Вопросы о важном»')
     def check_important_questions_list(self, question, question_answer):    
         super().wait_for_load_element(BasePageLocators.home_title_img)        
