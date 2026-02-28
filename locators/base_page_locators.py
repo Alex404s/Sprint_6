@@ -5,5 +5,6 @@ class BasePageLocators:
     order_button_top = [By.CLASS_NAME, "Button_Button__ra12g"] 
     scooter_button = [By.XPATH, '//img[@src="/assets/scooter.svg"]']
     yandex_button = [By.XPATH, '//img[@src="/assets/ya.svg"]']
+    yandex_dzen = [By.XPATH, '//a[@aria-label="Логотип Бренда"]']
 
     

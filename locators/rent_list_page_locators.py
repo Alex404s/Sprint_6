@@ -12,7 +12,7 @@ class RentListPageLocators:
     rent_order_button = [By.XPATH, '//div[@class= "Order_Buttons__1xGrp"]/button[text()= "Заказать"]']
     order_accept_field = [By.CLASS_NAME, "Order_Modal__YZ-d3"]
     order_accept_button = [By.XPATH, '//button[text()= "Да"]']
-    order_success_field = [By.XPATH, '//div[@class="Order_Text__2broi"]']
+    order_success_field = [By.XPATH, '//div[text()= "Заказ оформлен"]']
     look_status_button = [By.XPATH, '//button[text()= "Посмотреть статус"]']
     
     

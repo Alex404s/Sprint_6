@@ -1,21 +1,40 @@
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from ..locators.base_page_locators import BasePageLocators
+import allure
 
 
 class BasePage:
+
+    @allure.step('Инициализация переменной')
     def __init__(self, driver):
-        self.driver = driver
+        self.driver = driver 
 
-    def wait_for_load_home_page(self):
-        WebDriverWait(self.driver, 15).until(expected_conditions.presence_of_element_located(BasePageLocators.home_title_img))
+    @allure.step('Ожидание отображения элемента')
+    def wait_for_load_element(self, element_locator):
+        WebDriverWait(self.driver, 15).until(expected_conditions.presence_of_element_located(element_locator))
 
-    def click_order_button_top(self):
-        self.driver.find_element(*BasePageLocators.order_button_top).click()
+    @allure.step('Клик по элементу')
+    def click_button(self, button_locator):
+        self.driver.find_element(*button_locator).click()
 
-    def click_scooter_button(self):
-        self.driver.find_element(*BasePageLocators.scooter_button).click()
+    @allure.step('Получение текста элемента')
+    def get_text_element(self, element_locator):
+        element_text = self.driver.find_element(*element_locator).text
+        return element_text
+    
+    @allure.step('Прокрутка страницы до элемента')
+    def scroll_to_element(self, element_locator):
+        element = self.driver.find_element(*element_locator)
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
-    def click_yandex_button(self):
-        self.driver.find_element(*BasePageLocators.yandex_button).click()
+    @allure.step('Ввод значения')
+    def send_keys_to_element(self, element_locator, data):
+        self.driver.find_element(*element_locator).send_keys(data)
+
+    @allure.step('Получение URL текущей страницы')
+    def get_url(self):
+        current_url = self.driver.current_url
+        return current_url
+
+
 

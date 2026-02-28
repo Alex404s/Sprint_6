@@ -1,48 +1,52 @@
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
 from ..locators.scooter_order_page_locators import ScooterOrderPageLocators
+from ..locators.base_page_locators import BasePageLocators
 from .base_page import BasePage
-import time
+import allure
 
 
+class ScooterOrderPage(BasePage): 
 
-
-class ScooterOrderPage:
-    def __init__(self, driver):
-        self.driver = driver  
-
+    @allure.step('Прокрутка до нижней кнопки "Заказать"')
     def scroll_to_bottom_button(self):
-        button_bottom = self.driver.find_element(*ScooterOrderPageLocators.order_button_bottom_field)
-        self.driver.execute_script("arguments[0].scrollIntoView();", button_bottom)  
+        super().scroll_to_element(ScooterOrderPageLocators.order_button_bottom_field)
 
+    @allure.step('Нажатие по нижней кнопке "Заказать"')
     def click_order_bottom_button(self):
-        self.driver.find_element(*ScooterOrderPageLocators.order_button_bottom_field).click()
+        super().click_button(ScooterOrderPageLocators.order_button_bottom_field)
 
+    @allure.step("Ожидание прогрузки страницы оформления заказа")
     def wait_for_load_order_page(self):
-        WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(ScooterOrderPageLocators.order_field))
+        super().wait_for_load_element(ScooterOrderPageLocators.order_field)
     
+    @allure.step("Ввод имени")
     def send_name(self, name):
-        self.driver.find_element(*ScooterOrderPageLocators.order_name).send_keys(name)
+        super().send_keys_to_element(ScooterOrderPageLocators.order_name, name)
 
+    @allure.step("Ввод фамилии")
     def send_surname(self, surname):
-        self.driver.find_element(*ScooterOrderPageLocators.order_surname).send_keys(surname)
+        super().send_keys_to_element(ScooterOrderPageLocators.order_surname, surname)
 
+    @allure.step("Ввод адреса")
     def send_adress(self, adress):
-        self.driver.find_element(*ScooterOrderPageLocators.order_adress).send_keys(adress)
+        super().send_keys_to_element(ScooterOrderPageLocators.order_adress, adress)
 
+    @allure.step("Выбор станции метро")
     def send_metro_station(self, metro_station):
-        self.driver.find_element(*ScooterOrderPageLocators.order_metro_station).send_keys(metro_station)
-        self.driver.find_element(*ScooterOrderPageLocators.order_metro_station_choice).click()
+        super().send_keys_to_element(ScooterOrderPageLocators.order_metro_station, metro_station)
+        super().click_button(ScooterOrderPageLocators.order_metro_station_choice)
 
+    @allure.step("Ввод номера телефона")
     def send_phone(self, phone):
-        self.driver.find_element(*ScooterOrderPageLocators.order_phone).send_keys(phone)
+        super().send_keys_to_element(ScooterOrderPageLocators.order_phone, phone)
 
+    @allure.step("Нажатие кнопки Далее")
     def click_next_button(self):
-        self.driver.find_element(*ScooterOrderPageLocators.next_button).click()
+        super().click_button(ScooterOrderPageLocators.next_button)
 
-    def set_order_page_scenario_1(self, name, surname, adress, metro_station, phone):
-        BasePage.wait_for_load_home_page(self)  
-        BasePage.click_order_button_top(self)
+    @allure.step("Первый сценарий перехода и заполения формы заказа")
+    def set_order_page_scenario_1(self, name, surname, adress, metro_station, phone):        
+        super().wait_for_load_element(BasePageLocators.order_button_top)  
+        super().click_button(BasePageLocators.order_button_top)
         self.wait_for_load_order_page()
         self.send_name(name)
         self.send_surname(surname)
@@ -51,8 +55,9 @@ class ScooterOrderPage:
         self.send_phone(phone)
         self.click_next_button()
 
+    @allure.step("Второй сценарий перехода и заполения формы заказа")
     def set_order_page_scenario_2(self, name, surname, adress, metro_station, phone):
-        BasePage.wait_for_load_home_page(self)        
+        super().wait_for_load_element(BasePageLocators.home_title_img)        
         self.scroll_to_bottom_button()        
         self.click_order_bottom_button()        
         self.wait_for_load_order_page()        

@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 
-
 class ScooterOrderPageLocators:
     order_button_bottom_field = [By.XPATH, '//div[@class="Home_FinishButton__1_cWm"]']   
     order_field = [By.CLASS_NAME, "Order_Header__BZXOb"]
