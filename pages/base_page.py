@@ -40,5 +40,9 @@ class BasePage:
     def switch_window(self):
         self.driver.switch_to.window(self.driver.window_handles[-1])
 
+    @allure.step('Ожидание кликабельности элемента')
+    def wait_for_clickable_element(self, element_locator):
+        WebDriverWait(self.driver, 15).until(expected_conditions.element_to_be_clickable(element_locator))
+
 
 

@@ -10,7 +10,7 @@ class ImportantQuestions(BasePage):
     def check_important_questions_list(self, question, question_answer):    
         super().wait_for_load_element(BasePageLocators.home_title_img)        
         super().scroll_to_element(HomePageLocators.important_questions_list)
-        super().wait_for_load_element(question)
+        super().wait_for_clickable_element(question)
         super().click_button(question)        
         super().wait_for_load_element(question_answer)
 
