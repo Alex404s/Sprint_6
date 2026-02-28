@@ -1,5 +1,3 @@
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
 from ..locators.rent_list_page_locators import RentListPageLocators
 from .base_page import BasePage
 import allure
